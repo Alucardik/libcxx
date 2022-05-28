@@ -18,7 +18,6 @@
 #include <__ranges/concepts.h>
 #include <__ranges/data.h>
 #include <__ranges/empty.h>
-#include <__ranges/enable_borrowed_range.h>
 #include <__ranges/size.h>
 #include <__ranges/view_interface.h>
 #include <__utility/forward.h>
@@ -31,7 +30,7 @@
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-#if !defined(_LIBCPP_HAS_NO_CONCEPTS) && !defined(_LIBCPP_HAS_NO_INCOMPLETE_RANGES)
+#if !defined(_LIBCPP_HAS_NO_RANGES)
 
 namespace ranges {
   template<range _Range>
@@ -75,11 +74,9 @@ public:
   template<class _Range>
   ref_view(_Range&) -> ref_view<_Range>;
 
-  template<class _Tp>
-  inline constexpr bool enable_borrowed_range<ref_view<_Tp>> = true;
 } // namespace ranges
 
-#endif // !defined(_LIBCPP_HAS_NO_CONCEPTS) && !defined(_LIBCPP_HAS_NO_INCOMPLETE_RANGES)
+#endif // !defined(_LIBCPP_HAS_NO_RANGES)
 
 _LIBCPP_END_NAMESPACE_STD
 

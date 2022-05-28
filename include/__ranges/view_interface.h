@@ -18,6 +18,7 @@
 #include <__ranges/access.h>
 #include <__ranges/concepts.h>
 #include <__ranges/empty.h>
+#include <__ranges/enable_view.h>
 #include <concepts>
 #include <type_traits>
 
@@ -27,7 +28,7 @@
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-#if !defined(_LIBCPP_HAS_NO_CONCEPTS) && !defined(_LIBCPP_HAS_NO_INCOMPLETE_RANGES)
+#if !defined(_LIBCPP_HAS_NO_RANGES)
 
 namespace ranges {
 
@@ -39,7 +40,7 @@ void __implicitly_convert_to(type_identity_t<_Tp>) noexcept;
 
 template<class _Derived>
   requires is_class_v<_Derived> && same_as<_Derived, remove_cv_t<_Derived>>
-class view_interface {
+class view_interface : public view_base {
   _LIBCPP_HIDE_FROM_ABI
   constexpr _Derived& __derived() noexcept {
     static_assert(sizeof(_Derived) && derived_from<_Derived, view_interface> && view<_Derived>);
@@ -186,9 +187,9 @@ public:
   }
 };
 
-} // namespace ranges
+}
 
-#endif // !defined(_LIBCPP_HAS_NO_CONCEPTS) && !defined(_LIBCPP_HAS_NO_INCOMPLETE_RANGES)
+#endif // !defined(_LIBCPP_HAS_NO_RANGES)
 
 _LIBCPP_END_NAMESPACE_STD
 
